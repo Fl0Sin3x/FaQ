@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Question
+{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between align-items-start mt-5">
+        <h1> Toutes les dernieres questions</h1>
+        <a href="{{ path('question_add') }}" class="btn btn-primary">Posez une question</a>
+    </div>
+    {% for question in questions %}
+    <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ question.titles }}</h5>
+                <span class="badge bg-light">Sinex</span>
+    </div>
+            <div class="list-group">
+            <p class="mb-1">{{ question.content }}</p>
+            </div>
+            <small>{{ question.createdAt|date("d/m/Y à h:i") }}</small>
+    {% endfor %}
+{% endblock %}
