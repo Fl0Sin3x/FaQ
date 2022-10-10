@@ -1,0 +1,37 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+
+    <h1>Mon compte</h1>
+
+    <dl class="row">
+        <dt class="col-3">Nom d'utilisateur</dt>
+        <dd class="col-9">{{ user.firstname}}</dd>
+        <dt class="col-3">Adresse e-mail</dt>
+        <dd class="col-9">{{ user.email }}</dd>
+        <dd>
+
+        </dd>
+
+    </dl>
+
+    <p>
+        <a href="#" class="btn btn-sm btn-primary">Modifier mon profil</a>
+        <a href="# class="btn btn-sm btn-primary">Modifier mon mot de passe</a>
+    </p>
+
+    <hr>
+
+
+    <hr>
+    <h2>Mes réponses aux questions</h2>
+
+    <div class="question-container">
+
+
+    </div>
+
+{% endblock %}
