@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use App\Entity\User;
 
-class RegistrationFormType extends AbstractType
+class EditProfilType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -32,23 +32,6 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('email', EmailType::class)
-            ->add('agreeTerms', CheckboxType::class, [
-                "label" => "Acceptez les termes",
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'invalid_message' => 'Les deux mots de passe doivent être identiques.',
-                'first_options' => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmer votre mot de passe'],
-                'mapped' => false,
-                'required' => false,
-            ])
             ->add('picture', FileType::class, [
                 'label' => 'Votre avatar',
                 'mapped' => false,
@@ -57,14 +40,13 @@ class RegistrationFormType extends AbstractType
                     new File([
                         'maxSize' => '1024k',
                         'mimeTypes' => [
-                            'application/pdf',
-                            'application/x-pdf',
+                            'image/jpeg',
+                            'image/x-jpg',
                         ],
                         'mimeTypesMessage' => 'Please uploads a valid PDF document',
                     ])
                 ],
-            ])// ...
-        ;;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

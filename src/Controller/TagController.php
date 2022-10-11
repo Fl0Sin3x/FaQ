@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Tag;
-use App\Form\TagType;
-use App\Repository\TagRepository;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use App\Repository\TagRepository;
+use App\Form\TagType;
+use App\Entity\Tag;
 
 #[Route('/admin/tag', name: 'admin_tag_')]
 class TagController extends AbstractController

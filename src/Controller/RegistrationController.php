@@ -2,17 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Form\RegistrationFormType;
+use App\Form\EditProfilType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use App\Security\AppCustomAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use App\Form\RegistrationFormType;
+use App\Entity\User;
 
 class RegistrationController extends AbstractController
 {
@@ -48,4 +51,40 @@ class RegistrationController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/edit', name: 'app_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, SluggerInterface $slugger, User $user)
+    {
+
+        $form = $this->createForm(EditProfilType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile imageFilename */
+            $picture = $form->get('picture')->getData();
+            if ($picture) {
+                $filename = uniqid() . '.' . $picture->guessExtension();
+
+                $picture->move(
+                    $this->getParameter('images_directory'),
+                    $filename
+                );
+
+                $user->setPicture($filename);
+            }
+
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Profil modifié.');
+
+            return $this->redirectToRoute('app_profile');
+        }
+
+        return $this->render('registration/edit.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
 }

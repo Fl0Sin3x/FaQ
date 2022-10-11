@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Question;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use App\Entity\Question;
 
 class HomeController extends AbstractController
 {
