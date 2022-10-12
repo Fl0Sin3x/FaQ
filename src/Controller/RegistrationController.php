@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\EditProfilType;
+use App\Form\UpdatePasswordType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -84,6 +85,37 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render('registration/edit.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/{id}/update_password', name: 'app_update_password', methods: ['GET', 'POST'])]
+    public function updatePassword(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppCustomAuthenticator $authenticator, EntityManagerInterface $entityManager, User $user): Response
+    {
+        $form = $this->createForm(UpdatePasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+
+            return $userAuthenticator->authenticateUser(
+                $user,
+                $authenticator,
+                $request
+            );
+        }
+
+        return $this->render('registration/update_password.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
