@@ -42,6 +42,7 @@ class AppFixtures extends Fixture
         $manager->persist($question2);
 
         $user = new User();
+        $user->setUsername('Sinex');
         $user->setFirstname('Florian');
         $user->setLastname('Salducci');
         $user->setEmail('flo@gmail.com');
