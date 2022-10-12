@@ -37,21 +37,6 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'required' => false,
             ])
-            ->add('picture', FileType::class, [
-                'label' => 'Votre avatar',
-                'mapped' => false,
-                'required' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'application/pdf',
-                            'application/x-pdf',
-                        ],
-                        'mimeTypesMessage' => 'Please uploads a valid PDF document',
-                    ])
-                ],
-            ])// ...
         ;;
     }
 
