@@ -42,6 +42,7 @@ class EditProfilType extends AbstractType
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/x-jpg',
+                            'image/png',
                         ],
                         'mimeTypesMessage' => 'Please uploads a valid PDF document',
                     ])
