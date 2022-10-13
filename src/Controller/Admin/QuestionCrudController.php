@@ -18,7 +18,7 @@ class QuestionCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('title'),
+            TextField::new('titles'),
             TextareaField::new('content'),
         ];
     }
