@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -20,6 +21,8 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $faker = Factory::create();
+
         for ($i = 0; $i < 3; $i++) {
             $question = new Question();
             $question->setTitles('Why do we use Symfony 6 ?', $i);
@@ -45,10 +48,23 @@ class AppFixtures extends Fixture
         $user->setUsername('Sinex');
         $user->setFirstname('Florian');
         $user->setLastname('Salducci');
+        $user->setRoles(['ROLE_ADMIN']);
         $user->setEmail('flo@gmail.com');
         $user->setPassword($this->encoder->encodePassword($user, 'Florian'));
         $manager->persist($user);
 
+        $userList = [];
+        for ($i = 0; $i < 40; $i++) {
+            $users = new User();
+            $users->setUsername($faker->userName());
+            $users->setFirstname($faker->firstName());
+            $users->setLastname($faker->lastName());
+            $users->setEmail($faker->email());
+            $users->setRoles(['ROLE_USER']);
+            $users->setPassword($this->encoder->encodePassword($users, $users->getUsername()));
+            $userList = $users;
+            $manager->persist($users);
+        }
 
         $manager->flush();
     }

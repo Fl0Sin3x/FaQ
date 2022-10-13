@@ -2,13 +2,10 @@
 
 namespace App\Controller;
 
-use App\Form\EditProfilType;
-use App\Form\UpdatePasswordType;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Security\AppCustomAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\RegistrationFormType;
+use App\Form\UpdatePasswordType;
+use App\Form\EditProfilType;
 use App\Entity\User;
 
 class RegistrationController extends AbstractController
@@ -28,7 +27,6 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -38,7 +36,6 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
             return $userAuthenticator->authenticateUser(
                 $user,
@@ -57,7 +54,6 @@ class RegistrationController extends AbstractController
     {
 
         $form = $this->createForm(EditProfilType::class, $user);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -75,7 +71,6 @@ class RegistrationController extends AbstractController
                 $user->setPicture($filename);
             }
 
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
@@ -83,7 +78,6 @@ class RegistrationController extends AbstractController
 
             return $this->redirectToRoute('app_profile');
         }
-
         return $this->render('registration/edit.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
@@ -106,7 +100,6 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
             return $userAuthenticator->authenticateUser(
                 $user,
