@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +14,13 @@ use App\Entity\Tag;
 #[Route('/admin/tag', name: 'admin_tag_')]
 class TagController extends AbstractController
 {
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
     #[Route('/', name: 'list_tag', methods: ['GET'])]
     public function index(TagRepository $tagRepository): Response
     {
@@ -20,14 +28,13 @@ class TagController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $em): Response
     {
         $tag = new Tag();
         $form = $this->createForm(TagType::class, $tag);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($tag);
             $em->flush();
 
@@ -45,7 +52,7 @@ class TagController extends AbstractController
     #[Route('/{id}', name: 'tag_show', methods: ['GET', 'POST'])]
     public function show(Tag $tag): Response
     {
-        return $this->render('tag/show.html.twig', ['tag' => $tag]);
+        return $this->render('tag/view.html.twig.html.twig', ['tag' => $tag]);
     }
 
     #[Route('{id}/edit', name: 'tag_edit', methods: ['GET', 'POST'])]

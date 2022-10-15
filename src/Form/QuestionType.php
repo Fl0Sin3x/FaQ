@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Question;
+use App\Entity\Tag;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,14 +17,10 @@ class QuestionType extends AbstractType
         $builder
             ->add('titles')
             ->add('content')
-            ->add('votes',IntegerType::class,[
-                'label' => 'Votes',
-                'required' => false,
-            ])
-            ->add('archive', IntegerType::class, [
-                'label' => 'Archiver la question',
-                'required' => false,
-
+            ->add('tags', EntityType::class, [
+                'class' => Tag::class,
+                'choice_label' => 'name',
+                'multiple' => true,
             ])
         ;
     }

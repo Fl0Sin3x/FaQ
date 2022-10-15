@@ -22,26 +22,33 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create();
+        $faker = Factory::create('fr_FR');
+
         for ($i = 0; $i < 3; $i++) {
             $question = new Question();
             $question->setTitles('Why do we use Symfony 6 ?', $i);
-            $question->setContent('Sit similique quam et libero nihil sed voluptatibus adipisci et vero quod. 
-            Et iusto sint aut autem temporibus eos quia error non omnis repellat quo voluptatibus explicabo! 
-            Qui repellat pariatur quo doloribus quia aut incidunt quos et soluta deleniti est natus itaque aut saepe temporibus
-            Et nisi nihil aut tempore in ipsam nisi eos ducimus veritatis aut harum voluptatem eum consequatur repellendus et rerum sapiente. 
-            Et deserunt quia qui blanditiis tenetur sit autem eligendi. Aut amet cumque aut
-             quae esse rem ducimus autem et exercitationem voluptatem quo quibusdam magni sed harum eius! ', $i);
+            $question->setContent('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lacinia nisi 
+            sapien, a tristique tortor mollis sit amet. Nulla id nulla orci. Curabitur neque lorem, 
+            condimentum ac tincidunt eget, sagittis ut enim. Sed sit amet elementum felis, at cursus mauris. 
+            Curabitur tincidunt lorem sit amet leo efficitur tincidunt. Sed dictum elit turpis, rutrum accumsan 
+            leo vehicula at. Curabitur sodales libero at congue lobortis. Nullam feugiat tellus id ante accumsan,
+            sed vestibulum neque fermentum. Donec ut aliquet lacus. Proin ultricies porta enim. Vestibulum rutrum, urnanec 
+            dapibus semper, sem purus aliquam felis, eget pretium ligula sapien nec nisi. Fusce volutpat lorem in 
+            rutrum pulvinar. Pellentesque quis leo ut orci suscipit sodales a non nisi. Vestibulum blandit, 
+            dolor vel dictum lacinia, erat arcu semper ante, non scelerisque justo risus rhoncus risus. ');
             $manager->persist($question);
         }
         $question2 = new Question();
         $question2->setTitles('What is better console Xbox or Ps5 ?', $i);
-        $question2->setContent('Contrary to popular belief, Lorem Ipsum is not simply random text. 
-            It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, 
-            from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. 
-            Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, 
-            written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. 
-            he first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32?');
+        $question2->setContent('Lorem èipsum dolor sit amet, consectetur adipiscing elit. Fusce lacinia nisi 
+            sapien, a tristique tortor mollis sit amet. Nulla id nulla orci. Curabitur neque lorem, 
+            condimentum ac tincidunt eget, sagittis ut enim. Sed sit amet elementum felis, at cursus mauris.
+            Curabitur tincidunt lorem sit amet leo efficitur tincidunt. Sed dictum elit turpis, rutrum accumsan 
+            leo vehicula at. Curabitur sodales libero at congue lobortis. Nullam feugiat tellus id ante accumsan,
+            sed vestibulum neque fermentum. Donec ut aliquet lacus. Proin ultricies porta enim. Vestibulum rutrum, urnanec 
+            dapibus semper, sem purus aliquam felis, eget pretium ligula sapien nec nisi. Fusce volutpat lorem in 
+            rutrum pulvinar. Pellentesque quis leo ut orci suscipit sodales a non nisi. Vestibulum blandit, 
+            dolor vel dictum lacinia, erat arcu semper ante, non scelerisque justo risus rhoncus risus' . $i);
         $manager->persist($question2);
 
         $user = new User();
@@ -58,6 +65,7 @@ class AppFixtures extends Fixture
             $users = new User();
             $users->setUsername($faker->userName());
             $users->setFirstname($faker->firstName());
+            $users->setPicture('https://media-exp1.licdn.com/dms/image/C4D03AQH-hn0JKyEobQ/profile-displayphoto-shrink_200_200/0?e=1602720000&v=beta&t=KWzcAe0Jtz9btvvgvQURQ1-MaMwA5jCpcZSacW9m3co');
             $users->setLastname($faker->lastName());
             $users->setEmail($faker->email());
             $users->setRoles(['ROLE_USER']);

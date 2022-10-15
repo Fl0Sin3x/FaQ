@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,13 @@ use App\Entity\Question;
 #[Route('/question', name: 'question_')]
 class QuestionController extends AbstractController
 {
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
     #[Route('/question', name: 'app_question')]
     public function index(): Response
     {
@@ -20,7 +28,7 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/view', name: 'view' , requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[Route('/{id}/view', name: 'view', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function viewCategory(Question $question): Response
     {
         return $this->render('question/view.html.twig', [
@@ -38,17 +46,16 @@ class QuestionController extends AbstractController
     }
 
     #[Route('/add', name: 'add')]
-    public function addQuestion(Request $request)
+    public function addQuestion(Request $request, EntityManagerInterface $em)
     {
         $newQuestion = new Question();
         $form = $this->createForm(QuestionType::class, $newQuestion);
 
         $form->handleRequest($request);
-        if($form->isSubmitted()) {
+        if ($form->isSubmitted()) {
             $newQuestion->setUser($this->getUser());
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($newQuestion);
-            $manager->flush();
+            $em->persist($newQuestion);
+            $em->flush();
             return $this->redirectToRoute('question_list');
         }
         // on envoi le formulaire a la template
