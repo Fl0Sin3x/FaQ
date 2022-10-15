@@ -2,15 +2,15 @@
 // src/Controller/Admin/DashboardController.php
 namespace App\Controller\Admin;
 
-use App\Entity\Answer;
-use App\Entity\Tag;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Question;
+use App\Entity\Answer;
 use App\Entity\User;
+use App\Entity\Tag;
 
 class DashboardController extends AbstractDashboardController
 {

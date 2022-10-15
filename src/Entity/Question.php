@@ -34,6 +34,9 @@ class Question
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class)]
     private Collection $answers;
 
+    #[ORM\ManyToOne(inversedBy: 'questions')]
+    private ?User $user = null;
+
     #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'questions')]
     private Collection $tags;
 
@@ -165,4 +168,17 @@ class Question
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
 }

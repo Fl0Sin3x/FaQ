@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Tag;
 use Faker\Factory;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -22,7 +23,6 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
-
         for ($i = 0; $i < 3; $i++) {
             $question = new Question();
             $question->setTitles('Why do we use Symfony 6 ?', $i);
@@ -65,6 +65,26 @@ class AppFixtures extends Fixture
             $userList = $users;
             $manager->persist($users);
         }
+
+        $developmentTag = new Tag();
+        $developmentTag->setName('Development');
+        $manager->persist($developmentTag);
+
+        $technologyTag = new Tag();
+        $technologyTag->setName('Technology');
+        $manager->persist($technologyTag);
+
+        $phpTag = new Tag();
+        $phpTag->setName('Php');
+        $manager->persist($phpTag);
+
+        $symfonyTag = new Tag();
+        $symfonyTag->setName('Symfony');
+        $manager->persist($symfonyTag);
+
+        $javascriptTag = new Tag();
+        $javascriptTag->setName('Javascript');
+        $manager->persist($javascriptTag);
 
         $manager->flush();
     }

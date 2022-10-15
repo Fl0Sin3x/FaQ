@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="text-muted small ml-3">
                                     <div><strong>Posted</strong>: {{ question.createdAt|date("d/m/Y à h:i") }}</div>
-                                    <div><strong>Author: </strong> Sinex</div>
+                                    <div><strong>Author: </strong>{{ question.user.username }}</div>
                                 </div>
                                 <div class="px-4 pt-3"><a href="javascript:void(0)"
                                                           class="text-muted d-inline-flex align-items-center align-middle"

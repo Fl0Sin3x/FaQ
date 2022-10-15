@@ -45,6 +45,7 @@ class QuestionController extends AbstractController
 
         $form->handleRequest($request);
         if($form->isSubmitted()) {
+            $newQuestion->setUser($this->getUser());
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($newQuestion);
             $manager->flush();

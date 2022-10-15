@@ -13,10 +13,10 @@ use App\Entity\Tag;
 #[Route('/admin/tag', name: 'admin_tag_')]
 class TagController extends AbstractController
 {
-    #[Route('/', name: 'app_tag', methods: ['GET'])]
+    #[Route('/', name: 'list_tag', methods: ['GET'])]
     public function index(TagRepository $tagRepository): Response
     {
-        return $this->render('tag/index.html.twig', ['tags' => $tagRepository->findAll()]);
+        return $this->render('tag/list.html.twig', ['tag' => $tagRepository->findAll()]);
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]

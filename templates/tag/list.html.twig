@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tags{% endblock %}
+
+{% block body %}
+    <br> <br>
+    <h2 class="card text-white bg-dark mb-3" style="text-align: center">Tags</h2>
+    {% for tags in tag %}
+        <div class="flex-lg-row">
+            <div class="row-cols-sm-6">
+                <div class="card border-warning mb-3">
+                    <div class="card-body">
+                        <a href="#" class="btn btn-warning">{{ tags.name }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
