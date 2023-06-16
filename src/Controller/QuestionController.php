@@ -65,5 +65,5 @@ class QuestionController extends AbstractController
             ]
         );
     }
-    
+
 }

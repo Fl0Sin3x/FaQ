@@ -26,11 +26,11 @@ class Answer
     #[ORM\Column(nullable: true)]
     private ?bool $isBlocked = null;
 
-    #[ORM\ManyToOne(targetEntity: 'question',inversedBy: 'answers')]
+    #[ORM\ManyToOne(targetEntity: 'question', inversedBy: 'answers')]
     #[ORM\JoinColumn(nullable: false)]
     private $question;
 
-    #[ORM\ManyToOne(targetEntity: 'user',inversedBy: 'answers')]
+    #[ORM\ManyToOne(targetEntity: 'user', inversedBy: 'answers')]
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 

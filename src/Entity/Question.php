@@ -35,7 +35,7 @@ class Question
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class)]
     private Collection $answers;
 
-    #[ORM\ManyToOne(targetEntity: 'user',inversedBy: 'questions')]
+    #[ORM\ManyToOne(targetEntity: 'user', inversedBy: 'questions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 

@@ -84,7 +84,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-
     /**
      * @see UserInterface
      */
