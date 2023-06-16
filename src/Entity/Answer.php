@@ -26,12 +26,13 @@ class Answer
     #[ORM\Column(nullable: true)]
     private ?bool $isBlocked = null;
 
-    #[ORM\ManyToOne(inversedBy: 'answers')]
+    #[ORM\ManyToOne(targetEntity: 'question',inversedBy: 'answers')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Question $question = null;
+    private $question;
 
-    #[ORM\ManyToOne(inversedBy: 'answers')]
-    private ?User $user = null;
+    #[ORM\ManyToOne(targetEntity: 'user',inversedBy: 'answers')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $user;
 
     public function getId(): ?int
     {
@@ -86,17 +87,6 @@ class Answer
         return $this;
     }
 
-    public function getQuestion(): ?Question
-    {
-        return $this->question;
-    }
-
-    public function setQuestion(?Question $question): self
-    {
-        $this->question = $question;
-
-        return $this;
-    }
 
     public function getUser(): ?User
     {
@@ -108,6 +98,22 @@ class Answer
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+
+    /**
+     * @param mixed $question
+     */
+    public function setQuestion($question): void
+    {
+        $this->question = $question;
     }
 
 }

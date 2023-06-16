@@ -23,6 +23,7 @@ class Question
     private ?string $content = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?\DateTime $createdAt = null;
 
     #[ORM\Column(nullable: true)]
@@ -34,7 +35,8 @@ class Question
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class)]
     private Collection $answers;
 
-    #[ORM\ManyToOne(inversedBy: 'questions')]
+    #[ORM\ManyToOne(targetEntity: 'user',inversedBy: 'questions')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'questions')]

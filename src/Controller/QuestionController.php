@@ -13,7 +13,7 @@ use App\Entity\Question;
 #[Route('/question', name: 'question_')]
 class QuestionController extends AbstractController
 {
-    private $em;
+    private EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em)
     {
@@ -58,7 +58,6 @@ class QuestionController extends AbstractController
             $em->flush();
             return $this->redirectToRoute('question_list');
         }
-        // on envoi le formulaire a la template
         return $this->render(
             'question/add.html.twig',
             [
@@ -66,4 +65,5 @@ class QuestionController extends AbstractController
             ]
         );
     }
+    
 }

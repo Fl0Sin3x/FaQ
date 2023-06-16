@@ -14,7 +14,7 @@ use App\Entity\Tag;
 #[Route('/admin/tag', name: 'admin_tag_')]
 class TagController extends AbstractController
 {
-    private $em;
+    private EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em)
     {

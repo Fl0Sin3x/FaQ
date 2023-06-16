@@ -17,35 +17,25 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <p class="align-content-center"><a style="color: #0f172a" class="media-body ml-3"
-                                                               href="{{ path('question_view', {'id': question.id}) }}">
+                            href="{{ path('question_view', {'id': question.id}) }}">
                                     {{ question.titles }}
                                 </a></p>
                             <div>
                                 <img style="width:2% ; top: 15%; margin-left: 1%; border-radius: 8px"
-                                     class="rounded-circle"
-                                     src="{{ asset('uploads/' ~ question.user.picture ) }}"
-                                     alt="Avatar">
+                                      class="rounded-circle"
+{#                                      src="{{ asset('uploads/' ~ question.user.picture ) }}"#}
+                                 alt="">
                             </div>
                             <div class="media flex-wrap w-100 align-content-end">
                                 <div class="text-muted small ml-3">
                                     <div><strong>Posted</strong>: {{ question.createdAt|date("d/m/Y à h:i") }}</div>
-                                    <div><strong>Author: </strong>{{ question.user.username }}</div>
-                                </div>
-                                <div class="px-4 pt-3"><a href="javascript:void(0)"
-                                                          class="text-muted d-inline-flex align-items-center align-middle"
-                                                          data-abc="true">
-                                        <i class="fa-solid fa-up"></i>&nbsp;<span class="bi bi-arrow-down"></span>
-                                        <span class="align-middle">445</span> </a>
-                                    <span class="text-muted d-inline-flex align-items-center align-middle ml-4"> <i
-                                                class="fa fa-eye text-muted fsize-3"></i>&nbsp;
-                                    <span class="align-middle">14532</span> </span>
+                                    <div><strong>Author: </strong></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     {% endfor %}
 {% endblock %}

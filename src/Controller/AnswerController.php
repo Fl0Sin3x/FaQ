@@ -30,8 +30,6 @@ class AnswerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $answer->setAd($question->getAnswers())
-                ->setAuthor($this->getUser());
 
             $manager->persist($answer);
             $manager->flush();
